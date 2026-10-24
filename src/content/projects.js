@@ -82,39 +82,3 @@ export const projectGroups = [
     ],
   },
 ];
-
-function escapeHtml(value) {
-  return value.replace(
-    /[&<>"']/g,
-    (c) =>
-      ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[
-        c
-      ],
-  );
-}
-/** Only local curated content enters this template. External destinations open
- * independently so the reader's place and return-to-cloud control are retained.
- * To add media, supply {src:'/assets/photos/name.jpg',alt:'Description'}.
- */
-export function renderProjectGroups() {
-  return projectGroups
-    .map(
-      (group) =>
-        `<section class="project-group"><h2>${group.title}</h2>${group.items.map((item) => `<article class="reader-chapter project-entry"><div><p class="reader-label">${item.date ? escapeHtml(item.date) : "PROJECT"}</p><h3>${item.repo ? `<a href="${item.repo}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.title)} ↗</a>` : escapeHtml(item.title)}</h3><p>${escapeHtml(item.description)}</p><div class="project-links">${item.links.map((link) => `<a href="${link.url}" target="_blank" rel="noopener noreferrer">${escapeHtml(link.label)}</a>`).join("")}</div></div>${item.media ? `<figure class="reader-role-photo"><a href="${item.media.src}" target="_blank" rel="noopener noreferrer"><img src="${item.media.poster || item.media.src}" alt="${escapeHtml(item.media.alt)}" loading="lazy"></a>${item.media.poster ? `<button type="button" class="project-demo-toggle" data-demo-src="${item.media.src}" data-demo-poster="${item.media.poster}" aria-pressed="false">Play demo ▶</button>` : ""}</figure>` : `<figure class="photo-placeholder"><div aria-hidden="true">＋</div><figcaption>${escapeHtml(item.title)}<br><small>Project media to be added</small></figcaption></figure>`}</article>`).join("")}</section>`,
-    )
-    .join("");
-}
-
-/** Heavy GIFs start as static posters. Only an explicit play loads the GIF;
- * pausing replaces it with the poster, stopping animation and decode work. */
-export function installProjectMedia(reader) {
-  reader.querySelectorAll(".project-demo-toggle").forEach((button) =>
-    button.addEventListener("click", () => {
-      const playing = button.getAttribute("aria-pressed") === "true";
-      const image = button.closest("figure").querySelector("img");
-      image.src = playing ? button.dataset.demoPoster : button.dataset.demoSrc;
-      button.setAttribute("aria-pressed", String(!playing));
-      button.textContent = playing ? "Play demo ▶" : "Pause demo ⏸";
-    }),
-  );
-}

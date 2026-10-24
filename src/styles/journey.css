@@ -1,0 +1,378 @@
+/* Ordered style module. See index.css for cascade ownership. */
+/* A short native scroll runway replaces timed autoplay: adjacent checkpoints
+   are about 0.63 viewport heights apart at the default browser font size. */
+.journey {
+  height: 400svh;
+}
+.intro-copy {
+  top: 10%;
+  left: 6vw;
+  width: 88vw;
+}
+.intro-copy h1 {
+  font-size: clamp(27px, 3.3vw, 47px);
+  margin: 0 0 17px;
+  font-weight: 400;
+}
+.instruction {
+  font-family: Georgia, serif;
+  font-style: normal;
+  font-size: clamp(16px, 1.5vw, 22px);
+  margin: 0;
+  letter-spacing: 0.2px;
+  color: #f2e7f7;
+}
+.intro-copy:before {
+  content: "";
+  position: absolute;
+  inset: -40px -60px;
+  z-index: -1;
+  background: radial-gradient(ellipse at 25% 50%, #1b0e27ba, transparent 72%);
+  pointer-events: none;
+}
+.door-lettering {
+  color: #fff9ed;
+  text-shadow: 1px 1px 1px #bca6b25c;
+  font-weight: 900;
+}
+.landing-cloud img {
+  width: 180%;
+  left: -40%;
+  height: 35%;
+  opacity: 0.22;
+}
+.orb-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 4;
+}
+.light-orb {
+  position: absolute;
+  left: 0;
+  top: 0;
+  border-radius: 50%;
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.light-orb:after {
+  content: "";
+  position: absolute;
+  inset: -25%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #fff9ec33, transparent 65%);
+  animation: orb-breathe 4s ease-in-out infinite alternate;
+}
+.final-light {
+  position: absolute;
+  left: 50%;
+  top: 47%;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  z-index: 10;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    #fff 0,
+    #fff 38%,
+    #fff9ecde 52%,
+    #fff6ee66 65%,
+    transparent 74%
+  );
+  will-change: transform, opacity;
+}
+.accessibility-skip {
+  position: absolute;
+  left: 6vw;
+  top: 15px;
+  z-index: 30;
+  transform: translateY(-200%);
+  color: #fff;
+}
+.accessibility-skip:focus {
+  transform: none;
+}
+.contact {
+  min-height: 100svh;
+  background: linear-gradient(#fff, #f5effa);
+  padding: 100px max(8vw, 24px);
+  position: relative;
+  z-index: 2;
+  outline: none;
+}
+.contact-eyebrow {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: #927040;
+}
+.contact h2 {
+  font-size: clamp(44px, 6vw, 78px);
+  margin: 25px 0;
+}
+.contact-description {
+  color: #786482;
+  font-size: 16px;
+  line-height: 1.8;
+  max-width: 450px;
+}
+.contact-links {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  max-width: 850px;
+  gap: 35px;
+  margin: 60px 0 45px;
+}
+.contact-links div {
+  border-top: 1px solid #cdbbda;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.contact-links span {
+  font:
+    24px Georgia,
+    serif;
+}
+.contact-links small,
+.contact-note {
+  font-size: 11px;
+  color: #8b7796;
+}
+.contact-note {
+  display: block;
+  margin-top: 35px;
+}
+.checkpoints {
+  z-index: 7;
+}
+.chapter-nav {
+  bottom: 25px;
+}
+.chapter-nav a {
+  background: #f9f5ff88;
+  border-radius: 20px;
+  padding: 7px 10px;
+}
+@keyframes orb-breathe {
+  from {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1.15);
+  }
+}
+@media (max-width: 600px) {
+  .intro-copy {
+    top: 10%;
+    left: 7vw;
+    width: 86vw;
+  }
+  .intro-copy h1 {
+    font-size: 26px;
+    max-width: 300px;
+    line-height: 1.3;
+  }
+  .instruction {
+    font-size: 17px;
+  }
+  .door-lettering {
+    top: 53%;
+    font-size: 54px;
+  }
+  .contact {
+    padding-top: 75px;
+  }
+  .contact-links {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .chapter-nav {
+    left: 5%;
+    gap: 4px;
+  }
+  .chapter-nav a {
+    font-size: 8px;
+    padding: 8px;
+  }
+  .checkpoint {
+    max-height: 80svh;
+    overflow: auto;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .journey {
+    height: auto;
+  }
+  .orb-field,
+  .final-light {
+    display: none;
+  }
+  .light-orb:after {
+    animation: none;
+  }
+  .intro-copy {
+    top: 10svh;
+  }
+  .contact {
+    min-height: auto;
+  }
+  .accessibility-skip {
+    transform: none;
+  }
+  .checkpoint {
+    max-height: none;
+    overflow: visible;
+  }
+  .chapter-nav a {
+    background: none;
+  }
+}
+.light-orb {
+  background: radial-gradient(
+    circle,
+    #fff 0,
+    #fffbe9 11%,
+    #fff1c9d9 24%,
+    #efcd7b66 43%,
+    #d0a45c22 62%,
+    transparent 76%
+  );
+  filter: drop-shadow(0 0 16px #f6d484);
+}
+.contact {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  align-items: center;
+  gap: 3vw;
+  padding-top: 60px;
+  padding-bottom: 60px;
+  overflow: hidden;
+}
+.contact-copy {
+  position: relative;
+  z-index: 2;
+  max-width: 480px;
+}
+.contact-character {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.contact-character img {
+  position: relative;
+  z-index: 1;
+  animation: luffy-float 6s ease-in-out infinite;
+  filter: drop-shadow(0 20px 20px #9b6fbf22);
+}
+.character-cloud {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: -20%;
+  height: 25%;
+  opacity: 0.3;
+  background: url("/assets/cloud-volume.png") center/contain no-repeat;
+}
+.social-icons {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  margin: 35px 0 20px;
+}
+.social-icon {
+  width: 54px;
+  height: 54px;
+  border: 1px solid #bca4cb;
+  border-radius: 50%;
+  background: #fff9;
+  display: grid;
+  place-items: center;
+  color: #67477d;
+}
+.social-icon svg {
+  width: 23px;
+  height: 23px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.social-icon:disabled {
+  opacity: 0.65;
+  cursor: default;
+}
+.social-icon:not(:disabled):hover {
+  background: #eee1f5;
+  transform: translateY(-3px);
+}
+.social-icons a {
+  cursor: pointer;
+}
+.contact-note {
+  font-size: 10px;
+  line-height: 1.6;
+  margin: 0 0 25px;
+  max-width: 320px;
+}
+.contact .return {
+  margin-top: 10px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@keyframes luffy-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-18px) rotate(1deg);
+  }
+}
+@media (max-width: 700px) {
+  .contact {
+    grid-template-columns: 1fr;
+    padding-top: 60px;
+    gap: 0;
+  }
+  .contact-character {
+    min-height: 0;
+    height: 55svh;
+    max-height: 600px;
+    margin-top: 20px;
+  }
+  .contact-character img {
+    width: 100%;
+  }
+  .social-icon {
+    width: 48px;
+    height: 48px;
+  }
+  .social-icons {
+    gap: 13px;
+  }
+  .contact-copy {
+    max-width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .contact-character img {
+    animation: none;
+  }
+}
+/* The welcome line is a small gold signature, subordinate to the name. */

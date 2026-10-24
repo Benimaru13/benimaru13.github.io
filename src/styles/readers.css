@@ -1,0 +1,505 @@
+/* Ordered style module. See index.css for cascade ownership. */
+/* Full reading pages use ordinary scrolling. Decoration stays behind opaque
+   content surfaces, so clouds never compromise long-form text readability. */
+.expand-preview,
+.reader-close,
+.reader-shrink {
+  font: inherit;
+  border: 1px solid #7b5f92;
+  background: #fbf8ff;
+  color: #392440;
+  padding: 12px 19px;
+  border-radius: 24px;
+  cursor: pointer;
+  min-height: 44px;
+}
+.expand-preview {
+  margin-top: 18px;
+}
+.preview-status {
+  font-size: 12px;
+  color: #756381;
+}
+.reading-view {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  margin: 0;
+  border: 0;
+  padding: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: #ece5f5;
+  color: #392440;
+}
+.reading-view::backdrop {
+  background: #392440;
+}
+.reader-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1050px;
+  margin: auto;
+  padding: 32px clamp(22px, 5vw, 72px) 64px;
+}
+.reader-content header {
+  padding: 65px 0 50px;
+  max-width: 760px;
+}
+.reader-content h1 {
+  font:
+    clamp(42px, 7vw, 82px)/1.05 Georgia,
+    serif;
+  margin: 14px 0 24px;
+}
+.reader-content h2 {
+  font:
+    clamp(28px, 4vw, 43px)/1.15 Georgia,
+    serif;
+  margin: 12px 0 20px;
+}
+.reader-content p {
+  line-height: 1.8;
+}
+.reader-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+}
+.reader-chapter {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  padding: 36px;
+  margin-bottom: 30px;
+  background: #fcfaffed;
+  border: 1px solid #fff;
+  border-radius: 20px;
+  align-items: center;
+}
+.photo-placeholder {
+  margin: 0;
+  aspect-ratio: 4/3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed #ac96bf;
+  border-radius: 12px;
+  background: #eae1f1;
+  text-align: center;
+  color: #715a80;
+}
+.photo-placeholder div {
+  font-size: 30px;
+  margin-bottom: 12px;
+}
+.photo-placeholder small {
+  font-size: 11px;
+  line-height: 2;
+}
+.reader-content footer {
+  text-align: center;
+  padding-top: 40px;
+}
+.reader-content footer p {
+  font-size: 12px;
+}
+.reader-invite {
+  padding: 35px;
+  background: #faf7ffde;
+  border-radius: 20px;
+}
+.reader-invite a {
+  text-decoration: underline;
+}
+.reader-clouds {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.reader-clouds img {
+  position: absolute;
+  width: 75vw;
+  min-width: 600px;
+  opacity: 0.3;
+  animation: reader-drift 40s ease-in-out infinite alternate;
+}
+.reader-clouds img:first-child {
+  top: 5%;
+  left: -20%;
+}
+.reader-clouds img:last-child {
+  bottom: -8%;
+  right: -25%;
+  animation-delay: -20s;
+}
+@keyframes reader-drift {
+  to {
+    transform: translateX(12%);
+  }
+}
+@media (max-width: 650px) {
+  .reader-chapter {
+    grid-template-columns: 1fr;
+    padding: 24px;
+    gap: 24px;
+  }
+  .reader-content header {
+    padding-top: 40px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reader-clouds img {
+    animation: none;
+  }
+}
+/* A brief, image-ready profile preview. The mask applies only to the bio,
+   never the expansion button; full text is available in the reading view. */
+#profile h2 {
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.12;
+  margin-bottom: 22px;
+}
+.profile-preview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 32%;
+  gap: 20px;
+  align-items: start;
+}
+.profile-bio-excerpt {
+  max-height: 180px;
+  overflow: hidden;
+  mask-image: linear-gradient(#000 0%, #000 60%, transparent 100%);
+}
+.profile-bio-excerpt p {
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0;
+}
+.profile-photo-slot {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 14px;
+  background: #eae1f1;
+  color: #755b87;
+  text-align: center;
+  font-size: 12px;
+}
+.profile-photo-slot span {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.profile-photo-slot small {
+  font-size: 10px;
+}
+@media (max-width: 600px) {
+  .profile-preview-grid {
+    gap: 12px;
+    grid-template-columns: minmax(0, 1fr) 30%;
+  }
+  .profile-bio-excerpt {
+    max-height: 165px;
+  }
+  .profile-bio-excerpt p {
+    font-size: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .profile-bio-excerpt {
+    max-height: none;
+    overflow: visible;
+    mask-image: none;
+  }
+}
+/* A missing experience photo is intentional, not an empty gallery slot. */
+.reader-chapter.reader-chapter-text-only {
+  grid-template-columns: 1fr;
+}
+/* Album frames establish a light photographic composition without committing
+   to any image. The user's pause on photo additions is intentional. */
+#experiences h2 {
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.12;
+  margin-bottom: 22px;
+}
+.experience-preview-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+}
+.experience-preview-grid .description {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-top: 0;
+}
+.experience-album {
+  position: relative;
+  min-height: 250px;
+  pointer-events: none;
+}
+.album-frame {
+  position: absolute;
+  width: 94%;
+  aspect-ratio: 4/3;
+  left: 3%;
+  top: 5%;
+  background: #e8def0;
+  border: 7px solid #fffcff;
+  border-bottom-width: 27px;
+  box-shadow: 0 5px 15px #4b305522;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #80678f;
+  font-size: 11px;
+  animation: album-float 7s ease-in-out infinite alternate;
+  --tilt: -12deg;
+  transform: rotate(var(--tilt));
+}
+.album-frame:nth-child(2) {
+  left: 13%;
+  top: 23%;
+  --tilt: 10deg;
+  animation-delay: -3s;
+  background: #ddd1e8;
+}
+.album-frame:nth-child(3) {
+  left: -5%;
+  top: 43%;
+  --tilt: -4deg;
+  animation-delay: -5s;
+  background: #eee6f6;
+}
+@keyframes album-float {
+  to {
+    transform: translateY(-8px) rotate(var(--tilt));
+  }
+}
+@media (max-width: 600px) {
+  .experience-preview-grid {
+    gap: 12px;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+  .experience-preview-grid .description {
+    font-size: 12px;
+  }
+  .experience-album {
+    min-height: 190px;
+  }
+  .album-frame {
+    width: 94%;
+    font-size: 9px;
+    border-width: 4px;
+    border-bottom-width: 18px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .album-frame {
+    animation: none;
+  }
+}
+/* Stable photo slots: change object-position to adjust a crop without editing
+   the source. Event images are general StormHacks photos, not role evidence. */
+.profile-photo-slot {
+  overflow: hidden;
+  border: 0;
+}
+.profile-photo-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+.album-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.reader-portrait {
+  margin: 0;
+}
+.reader-portrait img {
+  width: 100%;
+  max-height: 560px;
+  object-fit: contain;
+  border-radius: 14px;
+}
+.reader-event-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 35px;
+}
+.reader-event-gallery figure {
+  margin: 0;
+  background: #fff;
+  padding: 8px;
+}
+.reader-event-gallery img {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+.reader-event-gallery figcaption {
+  font-size: 11px;
+  padding: 8px;
+}
+.reader-hobby-collage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  align-self: center;
+}
+.reader-hobby-collage figure {
+  margin: 0;
+  padding: 6px 6px 10px;
+  background: #fff;
+  box-shadow: 0 5px 15px #4b305522;
+}
+.reader-hobby-collage figure:nth-child(1) {
+  transform: rotate(-4deg);
+}
+.reader-hobby-collage figure:nth-child(2) {
+  transform: rotate(3deg);
+}
+.reader-hobby-collage figure:nth-child(3) {
+  transform: rotate(2deg);
+}
+.reader-hobby-collage figure:nth-child(4) {
+  transform: rotate(-3deg);
+}
+.reader-hobby-collage img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+.reader-hobby-collage figcaption {
+  padding-top: 7px;
+  font-size: 10px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  .reader-event-gallery {
+    grid-template-columns: 1fr;
+  }
+  .reader-hobby-collage {
+    margin-top: 8px;
+  }
+}
+/* Slot dimensions, not image intrinsic dimensions, own preview layout. */
+.profile-photo-slot {
+  position: relative;
+  min-width: 0;
+  width: 100%;
+  height: 180px;
+  aspect-ratio: auto;
+}
+.profile-photo-slot img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+.album-frame {
+  overflow: hidden;
+}
+.album-frame img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+}
+@media (max-width: 600px) {
+  .profile-photo-slot {
+    height: 150px;
+  }
+}
+/* Role photos retain full group framing; the hackathon collection has one
+   tile per event, including explicitly empty slots awaiting user selection. */
+.reader-role-photo {
+  margin: 0;
+  min-width: 0;
+}
+.reader-role-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+.reader-hackathons {
+  padding-top: 35px;
+}
+.reader-hackathons .reader-event-gallery {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+@media (max-width: 600px) {
+  .reader-hackathons .reader-event-gallery {
+    grid-template-columns: 1fr;
+  }
+}
+/* Project titles are the primary repository links; supplementary links stay
+   beneath the description and media slots inherit the responsive reader grid. */
+.project-group > h2 {
+  margin: 42px 0 24px;
+}
+.project-entry h3 {
+  font:
+    clamp(25px, 3.5vw, 38px)/1.18 Georgia,
+    serif;
+  margin: 12px 0 20px;
+}
+.project-entry h3 a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 5px;
+}
+.project-entry a:hover {
+  color: #80579e;
+}
+.project-links {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.project-links a {
+  text-decoration: underline;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+}
+/* Project screenshots are contained rather than cropped; diagrams retain
+   labels and portrait demos cannot expand beyond the media column. */
+.project-entry .reader-role-photo {
+  overflow: hidden;
+}
+.project-entry .reader-role-photo img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;
+  object-fit: contain;
+  background: #f6f0fb;
+}
+.project-demo-toggle {
+  font: inherit;
+  min-height: 44px;
+  margin-top: 12px;
+  padding: 8px 18px;
+  border: 1px solid #8c709e;
+  border-radius: 24px;
+  background: #fff8ff;
+  color: #392440;
+  cursor: pointer;
+}

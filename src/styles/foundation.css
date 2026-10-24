@@ -1,0 +1,580 @@
+/* Ordered style module. See index.css for cascade ownership. */
+/* Scene layout is deliberately small: one native scroll runway, one sticky
+   viewport, painted image layers, and semantic checkpoint content. */
+:root {
+  font-family: "Manrope", Arial, sans-serif;
+  color: #382345;
+  background: #d9d0eb;
+  font-synthesis: none;
+  --gold: #dfbe72;
+  --white: #faf7ff;
+  --purple: #75558e;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+a:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 6px;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+.journey {
+  position: relative;
+}
+.scene {
+  height: 100svh;
+  position: sticky;
+  top: 0;
+  isolation: isolate;
+}
+.masthead {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 26px 4vw;
+  color: #f5edf8;
+  text-shadow: 0 2px 12px #1b0c2e;
+  font:
+    19px Georgia,
+    serif;
+}
+.masthead span {
+  color: var(--gold);
+  padding: 0 6px;
+}
+.skip {
+  font:
+    10px Arial,
+    sans-serif;
+  letter-spacing: 1px;
+  border-bottom: 1px solid #d9c4dc88;
+  padding: 7px 0;
+}
+.sky {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 50% 47%,
+    #fffaff 0,
+    #eee9fb 15%,
+    #cec4e7 45%,
+    #9b83ba 100%
+  );
+  z-index: 0;
+}
+.horizon-glow {
+  position: absolute;
+  inset: 25% 25%;
+  background: #fcf8ff;
+  border-radius: 50%;
+  filter: blur(65px);
+  opacity: 0.8;
+}
+.cloud-field {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+.flight-cloud {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1000px;
+  height: 430px;
+  transform-origin: 0 0;
+  will-change: transform, opacity;
+}
+.flight-cloud img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: cloud-breathe var(--drift, 28s) ease-in-out var(--delay, 0s)
+    infinite alternate;
+  transform-origin: 50% 50%;
+}
+.gate-camera {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+.door {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  background: #392440;
+  box-shadow: 0 0 25px #1b0d27;
+  will-change: transform;
+}
+.door-left {
+  left: 0;
+}
+.door-right {
+  right: 0;
+}
+.door-art {
+  position: absolute;
+  inset: 0;
+  background-image: url("/assets/gate-unbarred.png");
+  background-size: 200% 100%;
+  background-repeat: no-repeat;
+}
+.door-left .door-art {
+  background-position: 0 50%;
+}
+.door-right .door-art {
+  background-position: 100% 50%;
+}
+.door-edge {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 8px;
+  background: linear-gradient(90deg, #75515e, #1e1426 60%, #bfa071);
+  box-shadow: 0 0 15px #14091d;
+}
+.door-right .door-edge {
+  inset: 0 auto 0 0;
+  transform: scaleX(-1);
+}
+.door-lettering {
+  position: absolute;
+  left: 50%;
+  writing-mode: vertical-rl;
+  font-family: "Yu Mincho", "Hiragino Mincho ProN", "Noto Serif CJK JP", serif;
+  line-height: 1;
+  letter-spacing: 0.2em;
+}
+.intro-copy {
+  position: absolute;
+  z-index: 7;
+  color: #fff7ff;
+  pointer-events: none;
+  text-shadow: 0 2px 15px #140c22;
+}
+.eyebrow {
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #e8cf8e;
+  font-weight: 600;
+}
+h1 {
+  font:
+    400 clamp(25px, 3vw, 43px)/1.1 Georgia,
+    serif;
+  letter-spacing: -1px;
+  margin: 17px 0;
+}
+.instruction {
+  font:
+    italic 14px Georgia,
+    serif;
+}
+.landing-cloud,
+.gate-fog {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+  overflow: hidden;
+}
+.landing-cloud img {
+  position: absolute;
+  object-fit: contain;
+  top: 71%;
+  animation: cloud-breathe 30s ease-in-out -8s infinite alternate;
+}
+.gate-fog {
+  opacity: 0;
+}
+.gate-fog img {
+  position: absolute;
+  width: 100%;
+  height: 60%;
+  object-fit: contain;
+  left: -35%;
+  top: 24%;
+  animation: cloud-breathe 23s ease-in-out -5s infinite alternate;
+}
+.gate-fog img:nth-child(2) {
+  left: 35%;
+  top: 40%;
+  animation-delay: -17s;
+  transform: scaleX(-1);
+}
+.speed-lines,
+.flight {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+  overflow: visible;
+}
+.speed-lines line {
+  stroke: #fffbff;
+  stroke-width: 1;
+  stroke-linecap: round;
+}
+.flight {
+  z-index: 3;
+}
+.beam-halo {
+  stroke: #e3224b;
+}
+.beam-edge {
+  stroke: #b5173c;
+}
+.beam-core {
+  stroke: #231226;
+}
+.beam-forks {
+  stroke: #aa193e;
+  filter: drop-shadow(0 0 2px #ef5e6f);
+}
+.flight > path {
+  fill: none;
+  stroke-linejoin: miter;
+  stroke-linecap: round;
+}
+.beam-head path:first-child {
+  fill: #1c0c22;
+  stroke: #c02049;
+  filter: drop-shadow(0 0 6px #fa436c);
+}
+.beam-head path:last-child {
+  fill: #f2bbba;
+  opacity: 0.85;
+}
+.overtake-caption {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  letter-spacing: 5px;
+  color: #65487f;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3;
+}
+.checkpoints {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.checkpoint {
+  position: absolute;
+  left: 12%;
+  top: 50%;
+  width: min(700px, 70vw);
+  padding: 24px 28px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  border-left: 1px solid #ad8fca66;
+  outline: none;
+  will-change: transform, opacity;
+}
+.checkpoint-label {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  color: #6d4787;
+}
+h2 {
+  font:
+    400 clamp(33px, 4.5vw, 59px)/1.02 "Manrope",
+    serif;
+  letter-spacing: -1.5px;
+  margin: 24px 0;
+}
+.description {
+  font-size: 14px;
+  line-height: 1.8;
+  max-width: 330px;
+  color: #6f5c7d;
+}
+.placeholder {
+  padding: 22px 0;
+  margin-top: 20px;
+  border-top: 1px solid #bfa8ce;
+  border-bottom: 1px solid #bfa8ce;
+}
+.placeholder span {
+  font-size: 9px;
+  letter-spacing: 2px;
+  color: #73548d;
+}
+.placeholder p {
+  font:
+    22px Georgia,
+    serif;
+  margin: 16px 0;
+}
+.placeholder small {
+  font-size: 11px;
+  line-height: 1.8;
+  color: #7c698a;
+}
+.return {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 12px;
+  border-bottom: 1px solid #b99fca;
+  padding: 4px 0;
+}
+.scene-status {
+  position: absolute;
+  bottom: 24px;
+  left: 4vw;
+  right: 4vw;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  color: #fff0ff;
+  text-shadow: 0 1px 6px #291431;
+  font-size: 8px;
+  letter-spacing: 1.8px;
+  pointer-events: none;
+}
+.track {
+  height: 1px;
+  width: 150px;
+  background: #c4add080;
+}
+.track i {
+  display: block;
+  background: var(--gold);
+  height: 2px;
+  width: 100%;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.scroll-hint {
+  margin-left: auto;
+}
+.chapter-nav {
+  position: absolute;
+  right: 4vw;
+  display: flex;
+  gap: 18px;
+  font-size: 9px;
+  color: #614477;
+  z-index: 9;
+  opacity: 0;
+  visibility: hidden;
+}
+.chapter-nav span {
+  padding-left: 5px;
+}
+.cursor-sparks {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 20;
+  overflow: visible;
+}
+.cursor-sparks path {
+  fill: none;
+  stroke: #a12048;
+  stroke-width: 1.6;
+  stroke-linejoin: miter;
+  filter: drop-shadow(0 0 3px #f4739b);
+}
+@keyframes cloud-breathe {
+  from {
+    transform: translate3d(-4%, 1%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6%, -3%, 0) scale(1.06);
+  }
+}
+@media (max-width: 600px) {
+  .masthead {
+    font-size: 16px;
+    padding: 24px 6vw;
+  }
+  .intro-copy {
+    top: 20%;
+  }
+  h1 {
+    padding: 0 12px;
+  }
+  .door-lettering {
+    font-size: 64px;
+    top: 44%;
+  }
+  .landing-cloud img {
+    width: 240%;
+    left: -70%;
+    height: 25%;
+  }
+  .gate-fog img {
+    width: 180%;
+    left: -90%;
+  }
+  .gate-fog img:nth-child(2) {
+    left: 10%;
+  }
+  .checkpoint {
+    left: 7%;
+    width: 86%;
+    padding: 22px;
+    background: #f9f5ffe8;
+  }
+  .checkpoint h2 {
+    font-size: 40px;
+  }
+  .placeholder {
+    padding: 15px 0;
+    margin-top: 15px;
+  }
+  .scene-status {
+    font-size: 7px;
+    letter-spacing: 1px;
+    gap: 8px;
+  }
+  .track {
+    width: 40px;
+  }
+  .chapter-nav {
+    left: 7%;
+    right: auto;
+    gap: 12px;
+  }
+  .chapter-nav span {
+    font-size: 8px;
+  }
+  .description {
+    font-size: 13px;
+  }
+}
+/* No-motion is a different reading layout, not a frozen scroll animation.
+   All three sections and navigation work without any animation initialization. */
+@media (prefers-reduced-motion: reduce) {
+  .journey {
+    height: auto;
+  }
+  .scene {
+    height: auto;
+    position: relative;
+    overflow: hidden;
+    padding-top: 100svh;
+  }
+  .gate-camera {
+    height: 100svh;
+  }
+  .intro-copy {
+    top: 18svh;
+  }
+  .landing-cloud,
+  .gate-fog,
+  .speed-lines,
+  .flight,
+  .cloud-field,
+  .cursor-sparks,
+  .overtake-caption,
+  .scene-status {
+    display: none;
+  }
+  .checkpoints {
+    position: relative;
+    padding: 35px 6vw 70px;
+    pointer-events: auto;
+  }
+  .checkpoint {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: min(650px, 100%);
+    margin: 35px auto;
+    opacity: 1;
+    visibility: visible;
+    transform: none !important;
+    pointer-events: auto;
+  }
+  .chapter-nav {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    justify-content: center;
+    opacity: 1;
+    visibility: visible;
+    padding-bottom: 35px;
+  }
+  .sky {
+    position: absolute;
+    inset: 100svh 0 0;
+  }
+  .flight-cloud img {
+    animation: none;
+  }
+}
+/* Keep the greeting clear of the lettering, under the small site identity. */
+.intro-copy {
+  text-align: left;
+}
+@media (max-width: 600px) {
+  .intro-copy {
+    top: 14%;
+    left: 6vw;
+    width: 88vw;
+  }
+  .intro-copy h1 {
+    font-size: 25px;
+    padding: 0;
+  }
+  .door-lettering {
+    top: 46%;
+    font-size: 56px;
+  }
+  .instruction {
+    font-size: 12px;
+  }
+  .eyebrow {
+    font-size: 8px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-copy {
+    top: 13svh;
+  }
+}
+/* Prevent the longer right-hand word from wrapping into a second column. */
+.door-lettering {
+  white-space: nowrap;
+  height: max-content;
+  max-height: none;
+  width: 1.2em;
+}
+@media (max-width: 600px) {
+  .door-lettering {
+    font-size: 56px;
+  }
+}
+.checkpoint {
+  background: linear-gradient(110deg, #f9f5fffa, #f9f5fff5 75%, #f9f5ffe0);
+  transform-origin: 50% 50%;
+}

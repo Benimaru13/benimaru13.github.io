@@ -3,7 +3,7 @@
  * decorations from intercepting input or running unnecessarily in the background.
  */
 import anime from "animejs/lib/anime.es.js";
-import { svgPolyline } from "./lightning.js";
+import { svgPolyline } from "../scene/lightning-geometry.js";
 const NS = "http://www.w3.org/2000/svg";
 
 /** All effects share the same red edge / black core as the main discharge. */

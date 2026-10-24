@@ -1,6 +1,9 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildLightningRibbon, cloudApertureMask } from "../src/lightning.js";
+import {
+  buildLightningRibbon,
+  cloudApertureMask,
+} from "../src/scene/lightning-geometry.js";
 
 /** Regression coverage for the screenshot bug: near-head depth samples used
  * to bunch together and cross. Sweep positions, aspect ratios and animation
@@ -73,7 +76,8 @@ test("cloud reveal has feathered, ordered alpha stops instead of a hard rectangl
 /** Route endpoints are shared with checkpoint projection: the optical wake
  * may bend, but its traveller must still physically meet each destination. */
 test("world route banks in depth and lands exactly on checkpoint knots", async () => {
-  const { flightRoutePoint } = await import("../src/lightning.js");
+  const { flightRoutePoint } =
+    await import("../src/scene/lightning-geometry.js");
   const knots = [
     { x: 200, y: 300, z: 0 },
     { x: 1000, y: 120, z: 5000 },
@@ -93,7 +97,7 @@ test("world route banks in depth and lands exactly on checkpoint knots", async (
 });
 
 test("orb red wash persists after contact and reverses without stored visited state", async () => {
-  const { orbCharge } = await import("../src/lightning.js");
+  const { orbCharge } = await import("../src/scene/lightning-geometry.js");
   for (const at of [0.46, 0.67, 0.88]) {
     assert.equal(orbCharge(at - 0.07, at), 0);
     assert.ok(
@@ -127,14 +131,15 @@ test("branch channels propagate in length rather than merely moving rigid forks"
  * Bound vertex count and spacing around camera movement and orb holds so
  * distant samples cannot collapse into the original dense bundle. */
 test("projected banking wake stays finite and sparsely sampled through the journey", async () => {
-  const { flightRoutePoint } = await import("../src/lightning.js");
+  const { flightRoutePoint } =
+    await import("../src/scene/lightning-geometry.js");
   const {
     cameraDistance,
     beamDistance,
     checkpointVisibility,
     projectPoint,
     CHECKPOINTS,
-  } = await import("../src/journey.js");
+  } = await import("../src/scene/journey-math.js");
   const targets = CHECKPOINTS.map((c, i) => ({
     ...c,
     x: (i % 2 ? -1 : 1) * (1050 + i * 80),

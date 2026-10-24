@@ -1,18 +1,19 @@
 {
   "name": "gate-prototype",
   "version": "1.0.0",
-  "main": "index.js",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "node --test",
-    "format": "prettier --write index.html src tests"
+    "format": "prettier --write index.html src tests",
+    "format:check": "prettier --check index.html src tests",
+    "check": "npm run format:check && npm test && npm run build"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "description": "Local scroll-driven gate and cloud animation prototype",
+  "description": "Chibueze Benneth\u2019s scroll-driven personal portfolio",
   "type": "module",
   "dependencies": {
     "animejs": "^3.2.2"

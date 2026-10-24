@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { flightRoutePoint } from "../src/lightning.js";
+import { flightRoutePoint } from "../src/scene/lightning-geometry.js";
 
 /** Test the incoming silhouette, not merely a leg's midpoint. A large skew
  * can make a seemingly low bank curl overhead again just before contact.

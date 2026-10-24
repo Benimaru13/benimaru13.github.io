@@ -9,7 +9,7 @@ import {
   extendTrailBehindViewport,
   cameraDistance,
   advancePortalMotion,
-} from "../src/journey.js";
+} from "../src/scene/journey-math.js";
 
 test("the racing beam cannot appear before the doors fully open", () => {
   assert.equal(gateProgress(0), 0);
