@@ -16,7 +16,7 @@ const pages = {
       ],
       [
         "The things I enjoy",
-        "I enjoy hiking, going to the gym, watching YouTube and keeping up with basketball.",
+        "I enjoy hiking, going to the gym, watching YouTube and playing basketball.",
         "Hobby collage",
       ],
     ],
@@ -114,7 +114,7 @@ export function installReadingViews() {
         )
         .join("")}
       ${button.dataset.read === "projects" ? `<section class="reader-hackathons"><h2>Hackathons</h2><p>Building with friends, learning new software and meeting people along the way.</p><div class="reader-event-gallery"><figure><img src="/assets/photos/event-1.jpg" alt="Chibueze and his teammates at StormHacks" loading="lazy"><figcaption>SFU StormHacks 2026</figcaption></figure><figure><img src="/assets/photos/yeep-team.png" alt="Chibueze and the YEEP team" loading="lazy"><figcaption>YEEP Hackathon 2026</figcaption></figure><figure><img src="/assets/photos/daydream.png" alt="Chibueze at Daydream Vancouver" loading="lazy"><figcaption>Daydream Vancouver 2026 </figcaption></figure></div></section>` : ""}
-      ${button.dataset.read === "experience" ? '<section class="reader-invite"><h2>Let’s connect.</h2><p>Have a question, an idea, or just a hello?</p><a href="mailto:benprichi13@gmail.com">Say hello by email ↗</a></section>' : ""}
+      ${button.dataset.read === "experience" ? '<section class="reader-invite"><p>Have a question, a comment, or just want to say hi?</p><a href="mailto:benprichi13@gmail.com">Send me a message :)</a></section>' : ""}
       <footer><button class="reader-shrink" type="button">Click to shrink ↓</button><p>Return to clouds and keep exploring.</p></footer></article>`;
     installProjectMedia(reader);
     reader.querySelector(".reader-close").addEventListener("click", close);

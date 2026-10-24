@@ -63,7 +63,7 @@ export const projectGroups = [
           "An ongoing TensorFlow/Keras CNN experiment to distinguish handwriting styles using samples from my siblings and me. I’m exploring preprocessing, model architecture and the challenges of learning from a small dataset.",
         links: [],
         media: {
-          src: "/assets/photos/handwriting-in-progress.png",
+          src: "/assets/photos/handwriting-in-progress.jpg",
           alt: "Under construction tape indicating the handwriting classifier is in progress",
         },
       },
