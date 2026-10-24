@@ -1,0 +1,24 @@
+{
+  "name": "gate-prototype",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "preview": "vite preview --host 127.0.0.1",
+    "test": "node --test",
+    "format": "prettier --write index.html src tests"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "description": "Local scroll-driven gate and cloud animation prototype",
+  "type": "module",
+  "dependencies": {
+    "animejs": "^3.2.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "vite": "^6.4.5"
+  }
+}

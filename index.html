@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#392740" />
+    <meta
+      name="description"
+      content="An illustrated gate and a scroll-driven flight through clouds. Chibueze's local motion prototype."
+    />
+    <title>Chibueze — beyond the gate</title>
+  </head>
+  <body>
+    <!-- Click-through decoration; does not replace or capture the native cursor. -->
+    <svg class="cursor-sparks" aria-hidden="true">
+      <defs>
+        <filter id="paint-grain">
+          <feTurbulence
+            type="fractalNoise"
+            baseFrequency=".08"
+            numOctaves="2"
+            seed="7"
+            result="grain"
+          />
+          <feColorMatrix
+            in="grain"
+            type="matrix"
+            values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 4 -1.15"
+            result="paint"
+          />
+          <feComposite
+            in="SourceGraphic"
+            in2="paint"
+            operator="in"
+            result="distressed"
+          />
+          <feDisplacementMap in="distressed" in2="grain" scale="2.5" />
+        </filter>
+      </defs>
+    </svg>
+    <a href="#experience" class="skip accessibility-skip">Skip intro</a>
+    <!-- Native scroll runway: a single sticky scene, followed by normal contact content. -->
+    <main id="top">
+      <div class="journey">
+        <!-- Layer order is explicit in CSS: sky, distant clouds, beam, doors, foreground clouds, content. -->
+        <div class="scene">
+          <div class="sky" aria-hidden="true">
+            <div class="horizon-glow"></div>
+          </div>
+          <div class="cloud-field" aria-hidden="true"></div>
+          <svg class="speed-lines" aria-hidden="true"></svg>
+          <svg class="flight" aria-hidden="true">
+            <defs>
+              <filter id="red-halo"><feGaussianBlur stdDeviation="5" /></filter>
+            </defs>
+            <path class="beam-halo" filter="url(#red-halo)" />
+            <path class="beam-edge" />
+            <path class="beam-core" />
+            <path class="beam-forks" />
+            <g class="beam-head">
+              <path d="M-17 -4L7 -4L18 0L7 4L-17 4L-10 0Z" />
+              <path d="M-9 -1L12 0L-9 1Z" />
+            </g>
+          </svg>
+          <div class="portal-back" aria-hidden="true"></div>
+          <div class="gate-backlight" aria-hidden="true"></div>
+          <div class="seam-light" aria-hidden="true"></div>
+          <div class="gate-camera" aria-hidden="true">
+            <div class="door door-left">
+              <div class="door-art"></div>
+              <img
+                class="door-lettering"
+                src="/assets/door-jesus.svg"
+                alt=""
+                draggable="false"
+              /><span class="door-hint">SCROLL TO</span>
+              <div class="door-edge"></div>
+            </div>
+            <div class="door door-right">
+              <div class="door-art"></div>
+              <img
+                class="door-lettering"
+                src="/assets/door-christ.svg"
+                alt=""
+                draggable="false"
+              /><span class="door-hint">OPEN DOORS!</span>
+              <div class="door-edge"></div>
+            </div>
+          </div>
+          <div class="gate-fog" aria-hidden="true">
+            <img src="/assets/cloud-volume.png" alt="" /><img
+              src="/assets/cloud-volume.png"
+              alt=""
+            />
+          </div>
+          <div class="intro-copy">
+            <h1 aria-label="Hi, I am Chibueze.">
+              <span class="typed-greeting" aria-hidden="true"
+                >Hi, I am Chibueze.</span
+              ><span class="typing-caret" aria-hidden="true"></span>
+            </h1>
+            <p class="instruction">Welcome to my world.</p>
+          </div>
+          <div class="landing-cloud" aria-hidden="true">
+            <img class="name-cloud" src="/assets/cloud-volume.png" alt="" /><img
+              class="bottom-left-cloud"
+              src="/assets/cloud-volume.png"
+              alt=""
+            /><img
+              class="bottom-right-cloud"
+              src="/assets/cloud-volume.png"
+              alt=""
+            />
+          </div>
+          <div class="portal-front" aria-hidden="true"></div>
+          <p class="door-scroll-note">
+            scroll to open doors <span aria-hidden="true">↓</span>
+          </p>
+          <div class="orb-field" aria-hidden="true"></div>
+          <div class="final-light" aria-hidden="true"></div>
+          <!-- Flight previews stay brief; full reading views own long-form content. -->
+          <div class="checkpoints">
+            <section class="checkpoint" id="experience" tabindex="-1">
+              <div class="checkpoint-label">PERSONAL PROFILE</div>
+              <h2>Hi, Chibueze Here.</h2>
+              <div class="profile-preview-grid">
+                <!-- Full text remains in the reader; this visual excerpt fades
+                     before the separate, always-readable expand control. -->
+                <div class="profile-bio-excerpt">
+                  <p>
+                    I’m a first-year General Science student at Kwantlen
+                    Polytechnic University with a strong interest in pursuing
+                    Computer Science. My dream is to create technology that
+                    gives others the opportunity to grow and pursue their
+                    dreams. I’m a curious person, and I love building cool
+                    things. I love coding, especially in Python! In my spare
+                    time, I’m usually working on a coding project, watching
+                    basketball, binging One Piece or watching YouTube videos. I
+                    also love playing badminton and rugby, and I’m a geek when
+                    it comes to talking about AI or machine learning.
+                  </p>
+                </div>
+                <figure class="profile-photo-slot">
+                  <img
+                    src="/assets/photos/profile.jpg"
+                    alt="Chibueze smiling at the camera in the sunlight"
+                    width="560"
+                    height="1200"
+                  />
+                </figure>
+              </div>
+              <button
+                class="expand-preview"
+                data-read="experience"
+                type="button"
+              >
+                Click to expand ↗<span class="sr-only"> personal profile</span>
+              </button>
+            </section>
+            <section class="checkpoint" id="projects" tabindex="-1">
+              <div class="checkpoint-label">EXPERIENCES</div>
+              <h2>How it’s been going</h2>
+              <div class="experience-preview-grid">
+                <div>
+                  <p class="description">
+                    I’ve had the opportunity to work with and lead teams of
+                    passionate people at amazing nonprofits, helping bring
+                    experiences for teenagers to life. From Ethos Lab and
+                    Thrive-4-Blacks to XD Hacks and more, I love seeing what we
+                    can create together!
+                  </p>
+                  <button
+                    class="expand-preview"
+                    data-read="projects"
+                    type="button"
+                  >
+                    Click to learn more ↗<span class="sr-only">
+                      about my experiences</span
+                    >
+                  </button>
+                </div>
+                <!-- Image selection is paused at the user's request. These
+                     album frames establish composition without adding photos. -->
+                <div
+                  class="experience-album"
+                  role="img"
+                  aria-label="Album of team and youth leadership experiences"
+                >
+                  <div class="album-frame">
+                    <img
+                      src="/assets/photos/event-1.jpg"
+                      alt="Chibueze and his StormHacks teammates"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="album-frame">
+                    <img
+                      src="/assets/photos/ethos-team.jpg"
+                      alt="Ethos Lab Youth Takeover team"
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="album-frame">
+                    <img
+                      src="/assets/photos/youth-coordinator.jpg"
+                      alt="Youth coordinator speaking with young people"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section class="checkpoint" id="hobbies" tabindex="-1">
+              <div class="checkpoint-label">PROJECTS</div>
+              <h2>What I have<br />been working on.</h2>
+              <p class="description">
+                I am proficient at Python, Git, scikit-learn, pandas, NumPy,
+                Matplotlib, and OpenCV. I am also familiar with Java, C++, and
+                TensorFlow.
+              </p>
+              <button class="expand-preview" data-read="hobbies" type="button">
+                Click to learn more ↗<span class="sr-only"> projects</span>
+              </button>
+            </section>
+          </div>
+          <nav class="chapter-nav" aria-label="Journey checkpoints">
+            <a href="#experience">01 <span>Profile</span></a>
+            <a href="#projects">02 <span>Experiences</span></a>
+            <a href="#hobbies">03 <span>Projects</span></a>
+          </nav>
+        </div>
+      </div>
+      <!-- Static destination after the final bloom; contact destinations are user supplied. -->
+      <section class="contact" id="contact" tabindex="-1">
+        <div class="contact-copy">
+          <h2>Let’s connect :)</h2>
+          <p class="contact-description">
+            Are you interested in learning more or just want to say hi?
+          </p>
+          <div class="social-icons" aria-label="Contact links">
+            <a
+              class="social-icon"
+              href="mailto:benprichi13@gmail.com"
+              aria-label="Email Chibueze"
+              title="Email"
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M3 6h18v13H3z" />
+                <path d="m3 6 9 7 9-7" /></svg
+              ><span class="sr-only">Email</span></a
+            ><a
+              class="social-icon"
+              href="https://www.linkedin.com/in/chibueze-benneth"
+              aria-label="Chibueze on LinkedIn"
+              title="LinkedIn"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
+                <g fill="currentColor" stroke="none">
+                  <circle cx="5" cy="5" r="1.7" />
+                  <path
+                    d="M3.5 9h3v11h-3zM10 9h3v1.5c.9-1.3 2-1.8 3.5-1.8 2.9 0 4.5 1.9 4.5 5V20h-3v-6c0-1.7-.7-2.6-2-2.6-1.7 0-3 1.1-3 3V20h-3z"
+                  />
+                </g></svg
+              ><span class="sr-only">LinkedIn</span></a
+            ><a
+              class="social-icon"
+              href="https://www.github.com/Benimaru13"
+              aria-label="Benimaru13 on GitHub"
+              title="GitHub"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M9 20c-5 1-5-2-7-3m14 5v-4c0-1-.2-2-1-2.5 4-.5 7-2 7-6a5 5 0 0 0-1.5-3.5c.3-1 .2-2-.3-3-2 0-3 1-4 1.7a13 13 0 0 0-7 0C8 4 7 3 5 3c-.5 1-.6 2-.3 3A5 5 0 0 0 3 9.5c0 4 3 5.5 7 6-.8.6-1 1.5-1 2.5v4"
+                /></svg
+              ><span class="sr-only">GitHub</span></a
+            ><a
+              class="social-icon"
+              href="https://www.instagram.com/bennethchibueze"
+              aria-label="Chibueze on Instagram"
+              title="Instagram"
+              target="_blank"
+              rel="noopener noreferrer"
+              ><svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="3" width="18" height="18" rx="5" />
+                <circle cx="12" cy="12" r="4" />
+                <path d="M17.5 6.5h.01" /></svg
+              ><span class="sr-only">Instagram</span></a
+            >
+          </div>
+          <a href="#top" class="return">Back to the gate ↑</a>
+        </div>
+        <div class="contact-character">
+          <!-- All electricity and the supplied cutout share one floating rig.
+               Split SVG layers let arcs pass behind and in front of the body. -->
+          <div class="character-rig">
+            <svg
+              class="character-electric character-electric-back"
+              viewBox="0 0 564 564"
+              aria-hidden="true"
+            ></svg>
+            <img
+              src="/assets/luffy-selected.png"
+              alt="Gear 5 Luffy in the original artwork supplied by Chibueze"
+              width="564"
+              height="564"
+            />
+            <div class="character-charge" aria-hidden="true"></div>
+            <svg
+              class="character-electric character-electric-front"
+              viewBox="0 0 564 564"
+              aria-hidden="true"
+            ></svg>
+          </div>
+          <div class="character-cloud" aria-hidden="true"></div>
+        </div>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
