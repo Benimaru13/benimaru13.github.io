@@ -236,15 +236,52 @@
             </section>
             <section class="checkpoint" id="projects" tabindex="-1">
               <div class="checkpoint-label">PROJECTS</div>
-              <h2>What I have<br />been working on.</h2>
-              <p class="description">
-                I am proficient at Python, Git, scikit-learn, pandas, NumPy,
-                Matplotlib, and OpenCV. I am also familiar with Java, C++, and
-                TensorFlow.
-              </p>
-              <button class="expand-preview" data-read="projects" type="button">
-                Click to learn more ↗<span class="sr-only"> projects</span>
-              </button>
+              <h2>What I have been working on.</h2>
+              <div class="experience-preview-grid">
+                <div>
+                  <p class="description">
+                    I am proficient at Python, Git, scikit-learn, pandas, NumPy,
+                    Matplotlib, and OpenCV. I am also familiar with Java, C++,
+                    and TensorFlow.
+                  </p>
+                  <button
+                    class="expand-preview"
+                    data-read="projects"
+                    type="button"
+                  >
+                    Click to learn more ↗<span class="sr-only"> projects</span>
+                  </button>
+                </div>
+                <!-- Reuse actual project screenshots and a still GIF poster.
+                     Loading the large animation belongs to the full reader. -->
+                <div
+                  class="experience-album project-album"
+                  role="img"
+                  aria-label="Screenshots of LeSafety, SignWave and SPEAK Up BC"
+                >
+                  <div class="album-frame">
+                    <img
+                      src="/assets/photos/le-safety-ss.png"
+                      alt=""
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="album-frame">
+                    <img
+                      src="/assets/photos/signwave-poster.jpg"
+                      alt=""
+                      loading="lazy"
+                    />
+                  </div>
+                  <div class="album-frame">
+                    <img
+                      src="/assets/photos/speakupbc-frontend.png"
+                      alt=""
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              </div>
             </section>
           </div>
           <nav class="chapter-nav" aria-label="Journey checkpoints">

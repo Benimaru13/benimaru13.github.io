@@ -26,6 +26,28 @@ export function installReadingViews({
     previousOverflow = document.body.style.overflow;
     reader.innerHTML = renderReader(button.dataset.read);
     installProjectMedia(reader);
+    
+    const copyButton = reader.querySelector(".copy-email");
+
+    // This control exists only in the personal profile reader.
+    if (copyButton) {
+      const emailLink = reader.querySelector(".reader-email");
+      const copyStatus = reader.querySelector(".copy-email-status");
+
+      copyButton.addEventListener("click", async () => {
+        try {
+          // Read the displayed address so we don't maintain another copy here.
+          const email = emailLink.textContent.trim();
+
+          await navigator.clipboard.writeText(email);
+          copyStatus.textContent = "Email copied!";
+        } catch {
+          // Clipboard access can be unavailable or denied by the browser.
+          copyStatus.textContent =
+            "Couldn't copy automatically. Select the address above to copy it.";
+        }
+      });
+    }
     reader.querySelector(".reader-close").addEventListener("click", close);
     reader.querySelector(".reader-shrink").addEventListener("click", close);
     document.body.style.overflow = "hidden";

@@ -32,7 +32,7 @@ test("every checkpoint opens an authored reader with existing local media", () =
 });
 test("roles without photos stay text-only and projects keep repository links", () => {
   const experience = renderReader("experiences");
-  assert.match(experience, /reader-chapter-text-only/);
+  assert.match(experience, /experience-body-text-only/);
   for (const group of projectGroups)
     for (const project of group.items) {
       assert.ok(URL.canParse(project.repo));
@@ -56,4 +56,63 @@ test("authored text is escaped at the HTML boundary", () => {
     escapeHtml('<img title="x"> &'),
     "&lt;img title=&quot;x&quot;&gt; &amp;",
   );
+});
+
+test("resume experience records render duty lists and skills without changing profile prose", () => {
+  const entries = pages.experiences.sections;
+  assert.ok(
+    entries.every((entry) => entry.organization && entry.role && entry.dates),
+  );
+  assert.ok(
+    entries.every((entry) => entry.duties.length && entry.skills.length),
+  );
+  const markup = renderReader("experiences");
+  assert.equal(
+    (markup.match(/class="experience-duties"/g) || []).length,
+    entries.length,
+  );
+  assert.equal(
+    (markup.match(/class="experience-skills"/g) || []).length,
+    entries.length,
+  );
+  assert.equal(
+    entries.find((entry) =>
+      entry.organization.startsWith("Falcon Technologies"),
+    ).dates,
+    "April – May 2026",
+  );
+  assert.ok(!renderReader("profile").includes('class="experience-duties"'));
+});
+
+// The sketch uses full-width heading/skills rows and a dedicated square photo.
+// Keep the repeated label out of individual cards without affecting page labels.
+test("experience tiles separate metadata and square-photo content from full-width skills", () => {
+  const markup = renderReader("experiences");
+  const entries = pages.experiences.sections;
+  assert.equal(
+    (markup.match(/class="experience-metadata"/g) || []).length,
+    entries.length,
+  );
+  assert.equal(
+    (markup.match(/class="experience-photo"/g) || []).length,
+    entries.filter((entry) => entry.photo).length,
+  );
+  assert.ok(!markup.includes('<p class="reader-label">EXPERIENCE</p>'));
+  assert.match(markup, /class="experience-location">Surrey, BC/);
+});
+
+test("project entries expose contribution lists and skills while handwriting stays text-only", () => {
+  const items = projectGroups.flatMap((group) => group.items);
+  const markup = renderReader("projects");
+  assert.ok(items.every((item) => item.duties.length && item.skills.length));
+  assert.equal(
+    (markup.match(/class="project-duties"/g) || []).length,
+    items.length,
+  );
+  assert.equal(
+    (markup.match(/class="project-skills"/g) || []).length,
+    items.length,
+  );
+  assert.equal(items.at(-1).title, "Handwriting Classifier");
+  assert.equal(items.at(-1).media, null);
 });

@@ -6,6 +6,8 @@
   color: #382345;
   background: #d9d0eb;
   font-synthesis: none;
+  /* Shared corner radius for the three cloud-journey preview tiles only. */
+  --preview-radius: 30px;
   --gold: #dfbe72;
   --white: #faf7ff;
   --purple: #75558e;
@@ -575,6 +577,7 @@ h2 {
   }
 }
 .checkpoint {
+  border-radius: var(--preview-radius);
   background: linear-gradient(110deg, #f9f5fffa, #f9f5fff5 75%, #f9f5ffe0);
   transform-origin: 50% 50%;
 }

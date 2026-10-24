@@ -1,6 +1,6 @@
 /** Authored biography, preferred experience ordering and photo mapping.
- * Section tuples are [heading, paragraphs, photo key or null]. Null is an
- * intentional text-only layout, not a missing image to repair. */
+ * Profile sections use [heading, paragraphs, photo key]. Experience objects
+ * use named fields and a duties array. A null photo is intentionally text-only. */
 export const pages = {
   profile: {
     title: "Hi, Chibueze Here!",
@@ -21,41 +21,129 @@ export const pages = {
   },
   experiences: {
     title: "My experiences",
-    label: "02 / EXPERIENCES",
+    label: "EXPERIENCES",
     intro:
       "This details my work experiences, volunteer roles, and hackathon photos.",
+    // Display order is intentional; each role owns its dates, duties and skills.
+    // Optional photoPosition: "50% 50%" adjusts a square crop without editing the image.
+    // Use photo: null for roles with no photo instead of adding a placeholder.
     sections: [
-      [
-        "Ethos Lab · Summer Intern, Architectural Team · July - August 2026",
-        "I led spatial planning for a week-long Youth Takeover, coordinating activity layouts, visitor flow, signage and logistics. I collaborated across architecture, engineering, design, trailer and marketing teams on VR, robotics and creative activities for more than 200 youth participants.",
-        "Ethos Lab experience photo",
-      ],
-      // Ordered by my preferred narrative rather than chronology.
-      [
-        "Thrive-4-Blacks Community Services Society · Youth Coordinator (On-call) · December 2025 - Present",
-        "I support workshops for racialized immigrant youth, drawing on my own lived experiences to help students adapt to new social and cultural environments and prepare for their future goals.\n\nI help foster an inclusive community where incoming immigrant students can build confidence, develop soft skills and feel supported through the transition.",
-        "Thrive-4-Blacks experience photos",
-      ],
-      [
-        "XD Hacks Mini Vancouver · Logistics Director · October 2025 - June 2026",
-        "I coordinated logistics and facility setup for HackYourLife 2026 at BCIT’s Burnaby campus. I also supported communication with speakers, mentors and judges for an event with more than 60 participants.",
-        "XD Hacks Team Photo",
-      ],
-      [
-        "Falcon Technologies · Sofware Development Intern · April – May 2026",
-        "I developed a Python and Flask application that retrieved and displayed daily data through an external API. I used SQLite to store diagnostic trend data and Git/GitHub for version control.",
-        null, // No photo available: render this chapter as a full-width text section.
-      ],
-      [
-        "Digital Storyworks · Team Coordinator Intern · August – October 2025",
-        "I coordinated tasks and timelines for a five-person team, designed promotional materials and logos, and supported social media and branding work around client needs.",
-        null,
-      ],
-      [
-        "Freelance Graphic Designer · Self-employed · 2023",
-        "I created logos, posters and social media assets using Photoshop and Canva, translating client ideas into visuals and managing delivery timelines.",
-        null,
-      ],
+      {
+        organization: "Ethos Lab",
+        location: "North America · On-site",
+        role: "Summer Intern",
+        dates: "July – August 2026",
+        photo: "Ethos Lab experience photo",
+        skills: [
+          "Volunteer Engagement",
+          "Event Management",
+          "Leadership",
+          "Organization Skills",
+          "Architectural Design",
+        ],
+        duties: [
+          "For Ethos Lab’s week-long Youth Takeover, I led spatial planning and organized layouts, visitor flow and signage to create an accessible, easy-to-navigate event space.",
+          "To keep preparations aligned, I coordinated with Design, Engineering, Trailer and Marketing teams, and coordinated timelines and physical requirements.",
+          "Using limited resources, I helped plan interactive stations such as VR build battles, robotics races and creative activities, for a varied youth experience.",
+          "Through planning, setup and cross-team collaboration, I contributed to an event that engaged more than 200 participants throughout the week.",
+        ],
+      },
+      {
+        organization: "Thrive-4-Blacks",
+        location: "Surrey, BC",
+        role: "Youth Coordinator",
+        dates: "December 2025 – Present",
+        photo: "Thrive-4-Blacks experience photos",
+        skills: [
+          "Workshop facilitation",
+          "Youth engagement",
+          "Cross-cultural Communication",
+          "Community Outreach",
+        ],
+        duties: [
+          "To support educational programming for youth, I help organize events and assist with their delivery, contributing to the preparation and execution of community programs.",
+          "During educational sessions, I present on topics such as scholarships and grants to help participants learn about opportunities available to them.",
+          "For cultural events, I volunteer with the organizing team and support event delivery, contributing to activities that bring the community together.",
+          "As part of event proceedings, I deliver land acknowledgements and support the program alongside other organizers and volunteers.",
+        ],
+      },
+      {
+        organization: "XD Hacks Mini Vancouver",
+        location: "Surrey, BC",
+        role: "Logistics Director",
+        dates: "October 2025 – June 2026",
+        photo: "XD Hacks Team Photo",
+        skills: [
+          "Event Logistics",
+          "Stakeholder Coordination",
+          "Scheduling",
+          "Cross-team Collaboration",
+          "Debugging Support",
+        ],
+        duties: [
+          "For HackYourLife 2026 at BCIT’s Burnaby campus, I coordinated logistics and facility setup to prepare the space for the hackathon.",
+          "To support the event’s sessions and participant experience, I helped coordinate outreach to speakers, workshop hosts, mentors and judges.",
+          "During the hackathon, I helped manage the schedule and troubleshoot operational issues to keep activities moving.",
+          "Working across the organizing team, I aligned logistics with other departments and helped participants debug problems so they could continue developing their projects.",
+        ],
+      },
+      {
+        organization: "Falcon Technologies Corp.",
+        location: "Surrey, BC",
+        role: "Software Development Intern",
+        dates: "April – May 2026",
+        photo: null,
+        duties: [
+          "To keep developer-tool trend data updated, I developed a Python script that retrieved, cleaned and stored more than 17,000 API records per snapshot.",
+          "To make the collected data easier to explore, I built a Flask dashboard with search, filters, interactive charts and CSV/JSON exports.",
+          "To identify changes in package activity, I compared SQLite snapshots and visualized the largest movers in rolling 30-day installation data.",
+          "To support repeatable data collection and development, I scheduled daily extraction and used Git and GitHub to manage code changes.",
+        ],
+        skills: [
+          "Python",
+          "Flask",
+          "SQLite",
+          "API Integration",
+          "Git / GitHub",
+          "Data Visualization",
+        ],
+      },
+      {
+        organization: "Digital Storyworks",
+        location: "Surrey, BC · Remote",
+        role: "Team Coordinator Intern",
+        dates: "August – October 2025",
+        photo: null,
+        duties: [
+          "For client branding and social media work, I coordinated tasks and timelines across a five-person team to organize delivery.",
+          "To support clients’ visual identities, I designed logos and promotional materials around their branding needs.",
+          "For brands seeking a stronger social media presence, I helped develop engagement strategies and coordinate the team’s contributions.",
+          "To build awareness of Digital Storyworks, I reached out to potential clients and introduced them to its services.",
+        ],
+        skills: [
+          "Team Coordination",
+          "Project Scheduling",
+          "Graphic Design",
+          "Branding",
+        ],
+      },
+      {
+        organization: "Freelance Graphic Designer",
+        role: "Self-employed",
+        dates: "2023",
+        photo: null,
+        duties: [
+          "For clients seeking visual branding materials, I used Photoshop and Canva to create logos, posters and social media assets.",
+          "To translate client ideas into designs, I worked with them to understand their needs and develop appropriate visuals.",
+          "To support project delivery, I managed timelines and coordinated the completion of client work.",
+        ],
+        skills: [
+          "Photoshop",
+          "Canva",
+          "Graphic Design",
+          "Client Communication",
+        ],
+      },
     ],
   },
   projects: {

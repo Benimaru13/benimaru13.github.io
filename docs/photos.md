@@ -38,3 +38,15 @@ transparency is unnecessary. Keep originals outside the published asset folder.
 Run `npm test` after changing filenames: reader media references are checked for
 missing files. Then preview both the small card and expanded reader. Confirm the
 people/events match the captions before publishing.
+
+## Square experience tiles
+
+Experience tile photos use `.experience-photo` in `src/styles/readers.css`.
+The shared `aspect-ratio: 1` and `object-fit: cover` make consistent square frames.
+This does not resize or overwrite source files. The original opens when clicked.
+
+To move a specific crop, add `photoPosition: "50% 35%"` to that experience object
+in `src/content/pages.js`. The first percentage sets horizontal positioning;
+the second sets vertical positioning. Omit it for the centered default.
+Location text is the same record's `location` field. Missing locations are left
+blank rather than invented.

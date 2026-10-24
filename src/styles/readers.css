@@ -245,6 +245,156 @@
   min-height: 250px;
   pointer-events: none;
 }
+/* Experience tile rows mirror the authored sketch. A block outer shell avoids
+   the generic chapter's two-column grid limiting the header and skills. */
+.reader-chapter.experience-entry {
+  display: block;
+  font-family: Georgia, serif;
+}
+/* Let the company claim its natural width instead of reserving half the row.
+   The position can move below it when their combined widths do not fit. */
+.experience-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.25rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgb(117 85 142 / 20%);
+}
+.reader-content .experience-heading h2 {
+  flex: 1 0 auto;
+  max-width: 100%;
+  font-size: clamp(25px, 3vw, 36px);
+  line-height: 1.15;
+  margin: 0;
+  white-space: nowrap;
+}
+.reader-content .experience-role {
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  border-left: 1px solid rgb(117 85 142 / 25%);
+  padding-left: 1.25rem;
+  margin: 0;
+}
+.experience-metadata {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin: 0.75rem 0 1.25rem;
+  font-size: 0.9rem;
+  color: #75558e;
+}
+.reader-content .experience-metadata p {
+  margin: 0;
+  line-height: 1.5;
+}
+.experience-dates {
+  font-style: italic;
+  text-align: right;
+}
+.experience-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(190px, 23vw, 250px);
+  align-items: start;
+  gap: 1.75rem;
+}
+.experience-body-text-only {
+  grid-template-columns: 1fr;
+}
+.experience-duties {
+  padding-left: 1.15rem;
+  margin: 0;
+  line-height: 1.7;
+}
+.experience-duties li + li {
+  margin-top: 0.65rem;
+}
+.experience-duties li::marker {
+  color: var(--purple);
+}
+/* All role photographs use the same square frame. Cropping is visual only:
+   the linked original stays intact; photoPosition in content can tune a crop. */
+.experience-photo {
+  width: 100%;
+  aspect-ratio: 1;
+  margin: 0;
+  overflow: hidden;
+  border-radius: 12px;
+  background: #e8e0f1;
+}
+.experience-photo a {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.experience-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.experience-skills {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(117 85 142 / 16%);
+  font-size: 0.9rem;
+}
+.experience-skills h3 {
+  font-family: inherit;
+  font-style: italic;
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+.experience-skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.experience-skills li {
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgb(117 85 142 / 8%);
+  line-height: 1.5;
+}
+@media (max-width: 650px) {
+  .experience-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  /* Preserve readable type on phones rather than squeezing long titles. */
+  .reader-content .experience-heading h2 {
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+  .reader-content .experience-role {
+    border: 0;
+    padding: 0;
+  }
+  .experience-body {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  .experience-photo {
+    width: min(100%, 250px);
+    justify-self: center;
+  }
+  .experience-metadata {
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+  }
+  .reader-content .experience-metadata .experience-dates {
+    margin-left: auto;
+  }
+}
+
 .album-frame {
   position: absolute;
   width: 94%;
@@ -502,4 +652,145 @@
   background: #fff8ff;
   color: #392440;
   cursor: pointer;
+}
+
+/* Copy email visual icon */
+.copy-email {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  margin-left: 0.5rem;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+
+.copy-email img {
+  display: block;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+
+  /* Transform changes appearance without changing layout dimensions. */
+  transform-origin: center;
+  transition: transform 150ms ease;
+}
+
+.copy-email:hover {
+  transform: scale(1.2);
+}
+
+.copy-email:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 4px;
+}
+
+/* Reserve room for feedback so copying doesn't shift nearby content. */
+.copy-email-status {
+  min-height: 1.5em;
+}
+
+/* Project previews share the existing album's bounded frames and reduced-motion
+   behavior. Contain screenshots so maps and interfaces are not cropped away. */
+#projects h2 {
+  font-size: clamp(28px, 3.5vw, 48px);
+  line-height: 1.12;
+  margin-bottom: 22px;
+}
+.project-album .album-frame img {
+  object-fit: contain;
+  background: #fff;
+}
+/* Keep project rows consistent with experiences, but preserve complete
+   screenshots. Media centers against duties rather than the whole card. */
+.reader-chapter.project-entry {
+  display: block;
+  font-family: Georgia, serif;
+}
+.project-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgb(117 85 142 / 20%);
+}
+.project-entry .project-heading h3 {
+  margin: 0;
+}
+.reader-content .project-date {
+  margin: 0;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: #75558e;
+}
+.project-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 2rem;
+  align-items: center;
+}
+.project-body-text-only {
+  grid-template-columns: 1fr;
+}
+.project-body > .reader-role-photo {
+  margin: 0;
+  align-self: center;
+}
+.project-body > .reader-role-photo > a {
+  display: block;
+}
+@media (max-width: 650px) {
+  .project-body {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+}
+
+.project-duties {
+  margin: 0;
+  padding-left: 1.15rem;
+  line-height: 1.7;
+}
+.project-duties li + li {
+  margin-top: 0.65rem;
+}
+.project-duties li::marker {
+  color: var(--purple);
+}
+.project-entry .project-links {
+  margin-top: 1rem;
+}
+.project-skills {
+  margin-top: 1.5rem;
+  border-top: 1px solid rgb(117 85 142 / 16%);
+  padding-top: 1rem;
+}
+.project-skills h4 {
+  font:
+    italic 600 1rem Georgia,
+    serif;
+  margin: 0 0 0.75rem;
+}
+.project-skills ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.project-skills li {
+  font-size: 0.9rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.5rem;
+  background: rgb(117 85 142 / 8%);
+  line-height: 1.5;
 }

@@ -1,3 +1,21 @@
+# Installed dependencies and generated build/test output.
 node_modules/
 dist/
+coverage/
+
+# Local exploration, source research and scratch files; never website inputs.
+/art-history/
+/work/
+/tmp/
+/private/
+
+# Local environment values. Keep only a deliberately sanitized example tracked.
+.env
+.env.*
+!.env.example
+
+# Machine-specific files, logs and optional Python preparation caches.
 .DS_Store
+*.log
+__pycache__/
+*.pyc
