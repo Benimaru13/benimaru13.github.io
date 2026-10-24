@@ -151,3 +151,21 @@ are superseded; current documentation describes the active implementation.
   environment files, logs, coverage output and Python caches.
 - Kept website assets, source, tests, documentation and preparation scripts
   eligible for version control. `.gitignore` does not untrack existing files.
+
+## 2026-10-24 — Current README and editing reference refresh
+
+- Expanded the file map to name each content module and the copy-email asset;
+  documented the clipboard controller, structured experience/project records,
+  STAR-style duties and technology lists.
+- Documented current tile rows, square versus contained image behavior, centered
+  project media, real-project preview albums, crop adjustment and the user's
+  current 30px shared preview radius.
+- Recorded local-only Git exclusions and their tracked-file limitation.
+- Corrected the project editing guide: `media: null` is now text-only, not a
+  placeholder, and examples include duties and skills.
+- Recent tutorial changes now explicitly recorded: visible/clickable profile
+  email plus icon-only copy control and success/failure feedback; handwriting
+  moved below Basketball with no image; wrapper/class-placement corrections
+  restored intended full-width text-only project layout.
+- Validation: documentation paths checked against the current files. No source
+  or runtime behavior changed; no additional build or visual test claimed.

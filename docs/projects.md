@@ -4,8 +4,9 @@ Edit `src/content/projects.js`. `projectGroups` contains Group Projects and
 Personal Projects; array order is the display order. The refactor preserves the
 user’s current order and wording rather than silently sorting or rewriting it.
 
-Each project has `title`, `date`, `repo`, `description`, an array of supplementary
-`links`, and optional `media`. The title links to `repo`; supplementary links
+Each project has `title`, `date`, `repo`, STAR-style `duties`, `skills`, an array
+of supplementary `links`, and optional `media`. `description` is a prose fallback
+when no duties are supplied. The title links to `repo`; supplementary links
 appear below the description. Review HTTPS destinations before publishing.
 
 ```js
@@ -14,7 +15,9 @@ appear below the description. Review HTTPS destinations before publishing.
   title: "My project",
   date: "October 2026",
   repo: "https://github.com/username/repository",
-  description: "What I built and what I contributed.",
+  // Keep contributions and outcomes in your own words and backed by evidence.
+  duties: ["The problem I addressed, what I did and the result."],
+  skills: ["Python"],
   links: [{ label: "Demo ↗", url: "https://example.com" }],
   media: {
     src: "/assets/photos/my-project.jpg",
@@ -23,7 +26,7 @@ appear below the description. Review HTTPS destinations before publishing.
 }
 ```
 
-Set `media: null` to show a labelled placeholder. Screenshots are contained,
+Set `media: null` for an intentional full-width text-only entry. Screenshots are contained,
 not cropped, so their diagrams remain readable. Clicking an image opens the
 original local asset in another tab.
 
