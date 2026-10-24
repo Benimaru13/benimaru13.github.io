@@ -1749,7 +1749,7 @@ img.door-lettering {
 
 /* A brief, image-ready profile preview. The mask applies only to the bio,
    never the expansion button; full text is available in the reading view. */
-#experience h2 {
+#profile h2 {
   font-size: clamp(28px, 3.5vw, 48px);
   line-height: 1.12;
   margin-bottom: 22px;
@@ -1818,7 +1818,7 @@ img.door-lettering {
 
 /* Album frames establish a light photographic composition without committing
    to any image. The user's pause on photo additions is intentional. */
-#projects h2 {
+#experiences h2 {
   font-size: clamp(28px, 3.5vw, 48px);
   line-height: 1.12;
   margin-bottom: 22px;

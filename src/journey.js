@@ -6,9 +6,9 @@ export const smoothstep = (value) => {
   return t * t * (3 - 2 * t);
 };
 export const CHECKPOINTS = [
-  { id: "experience", at: 0.46, label: "01 / PERSONAL PROFILE" },
-  { id: "projects", at: 0.67, label: "02 / EXPERIENCES" },
-  { id: "hobbies", at: 0.88, label: "03 / PROJECTS" },
+  { id: "profile", at: 0.46, label: "01 / PERSONAL PROFILE" },
+  { id: "experiences", at: 0.67, label: "02 / EXPERIENCES" },
+  { id: "projects", at: 0.88, label: "03 / PROJECTS" },
 ];
 
 // A short arrival, readable hold, then recession. Checkpoint windows do not

@@ -4,7 +4,7 @@ import { renderProjectGroups, installProjectMedia } from "./project-content.js";
  * Historical flight anchor IDs remain stable while their displayed roles change.
  */
 const pages = {
-  experience: {
+  profile: {
     title: "Hi, Chibueze Here!",
     label: "PERSONAL PROFILE",
     intro: "I’m glad you made it here. Feel free to look around :)",
@@ -21,7 +21,7 @@ const pages = {
       ],
     ],
   },
-  projects: {
+  experiences: {
     title: "My experiences",
     label: "02 / EXPERIENCES",
     intro:
@@ -60,7 +60,7 @@ const pages = {
       ],
     ],
   },
-  hobbies: {
+  projects: {
     title: "Things I’ve built",
     label: "03 / PROJECTS",
     intro: "Team efforts, personal experiments and ideas I’m bringing to life.",
@@ -101,7 +101,7 @@ export function installReadingViews() {
       <article class="reader-content"><button class="reader-close" type="button">← Back to the clouds</button>
       <header><p class="reader-label">${page.label}</p><h1 id="reader-title" tabindex="-1">${page.title}</h1><p>${page.intro}</p></header>
 
-      ${button.dataset.read === "hobbies" ? renderProjectGroups() : ""}
+      ${button.dataset.read === "projects" ? renderProjectGroups() : ""}
       ${page.sections
         .map(
           ([title, text, photo]) =>
@@ -113,8 +113,8 @@ export function installReadingViews() {
               )}</div>${photo === "Hobby collage" ? `<div class="reader-hobby-collage"><figure><img src="/assets/photos/hiking.png" alt="Chibueze hiking" loading="lazy" /><figcaption>Hiking</figcaption></figure><figure><img src="/assets/photos/gym.png" alt="Chibueze at the gym" loading="lazy" /><figcaption>Going to the gym</figcaption></figure><figure><img src="/assets/photos/youtube.png" alt="Chibueze watching YouTube" loading="lazy" /><figcaption>Watching YouTube</figcaption></figure><figure><img src="/assets/photos/basketball.png" alt="Chibueze playing basketball" loading="lazy" /><figcaption>Basketball</figcaption></figure></div>` : rolePhotos[photo] ? `<figure class="reader-role-photo"><img src="${rolePhotos[photo]}" alt="${photo}" loading="lazy" /></figure>` : photo === "Portrait of Chibueze" ? `<figure class="reader-portrait"><img src="/assets/photos/profile.jpg" alt="Chibueze smiling outdoors in a suit" /></figure>` : photo ? `<figure class="photo-placeholder"><div aria-hidden="true">＋</div><figcaption>${photo}<br><small>Photo to be supplied</small></figcaption></figure>` : ""}</section>`,
         )
         .join("")}
-      ${button.dataset.read === "projects" ? `<section class="reader-hackathons"><h2>Hackathons</h2><p>Building with friends, learning new software and meeting people along the way.</p><div class="reader-event-gallery"><figure><img src="/assets/photos/event-1.jpg" alt="Chibueze and his teammates at StormHacks" loading="lazy"><figcaption>SFU StormHacks 2026</figcaption></figure><figure><img src="/assets/photos/yeep-team.png" alt="Chibueze and the YEEP team" loading="lazy"><figcaption>YEEP Hackathon 2026</figcaption></figure><figure><img src="/assets/photos/daydream.png" alt="Chibueze at Daydream Vancouver" loading="lazy"><figcaption>Daydream Vancouver 2026 </figcaption></figure></div></section>` : ""}
-      ${button.dataset.read === "experience" ? '<section class="reader-invite"><p>Have a question, a comment, or just want to say hi?</p><a href="mailto:benprichi13@gmail.com">Send me a message :)</a></section>' : ""}
+      ${button.dataset.read === "experiences" ? `<section class="reader-hackathons"><h2>Hackathons</h2><p>Building with friends, learning new software and meeting people along the way.</p><div class="reader-event-gallery"><figure><img src="/assets/photos/event-1.jpg" alt="Chibueze and his teammates at StormHacks" loading="lazy"><figcaption>SFU StormHacks 2026</figcaption></figure><figure><img src="/assets/photos/yeep-team.png" alt="Chibueze and the YEEP team" loading="lazy"><figcaption>YEEP Hackathon 2026</figcaption></figure><figure><img src="/assets/photos/daydream.png" alt="Chibueze at Daydream Vancouver" loading="lazy"><figcaption>Daydream Vancouver 2026 </figcaption></figure></div></section>` : ""}
+      ${button.dataset.read === "profile" ? '<section class="reader-invite"><p>Have a question, a comment, or just want to say hi?</p><a href="mailto:benprichi13@gmail.com">Send me a message :)</a></section>' : ""}
       <footer><button class="reader-shrink" type="button">Click to shrink ↓</button><p>Return to clouds and keep exploring.</p></footer></article>`;
     installProjectMedia(reader);
     reader.querySelector(".reader-close").addEventListener("click", close);
