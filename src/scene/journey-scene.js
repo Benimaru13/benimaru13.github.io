@@ -11,7 +11,7 @@ import {
   gateProgress,
   cameraDistance,
 } from "./journey-math.js";
-import { orbCharge } from "./lightning-geometry.js";
+import { orbCharge } from "./lightning-geometry.js"; // orb charge handles the colour change of the orb when approached
 import { createClouds } from "./clouds.js";
 import { createBeam } from "./beam.js";
 import { createGateTimeline } from "./gate.js";
@@ -40,22 +40,22 @@ export function createJourneyScene(reducedMotion) {
   const portalFront = document.querySelector(".portal-front");
   const landingCloud = document.querySelector(".landing-cloud");
   const nav = document.querySelector(".chapter-nav");
-  let sceneState = null;
-  let lastBeamPaint = -Infinity,
-    previousGateSeek = -1;
+  let sceneState = null,
+      lastBeamPaint = -Infinity,
+      previousGateSeek = -1;
   /** Single scroll transaction: update scene geometry, then content visibility.
    * Reads are grouped before writes to avoid forced layout between panels. */
   function renderScroll() {
     if (reducedMotion.matches) return;
     const width = scene.clientWidth,
-      height = scene.clientHeight;
+          height = scene.clientHeight; 
     const progress = clamp(
       window.scrollY / Math.max(1, journey.offsetHeight - height),
-    );
+    ); 
     // Read panel layout BEFORE mutating any scene styles. Interleaving width/
     // position reads with transforms forced repeated synchronous layout passes.
     const panelMetrics = targets.map((checkpoint) => {
-      const element = document.getElementById(checkpoint.id);
+      const element = document.getElementById(checkpoint.id); // the content tile
       return { element, center: element.offsetLeft + element.offsetWidth / 2 };
     });
     // Apply signed travel immediately, including jumps outside the doorway
@@ -73,6 +73,7 @@ export function createJourneyScene(reducedMotion) {
     const crack = clamp(progress / 0.19);
     portalBack.style.display = progress < 0.29 ? "block" : "none";
     portalFront.style.display = progress < 0.29 ? "block" : "none";
+
     const release = smoothstep(progress / 0.012);
     const dissolve = 1 - smoothstep((progress - 0.15) / 0.055);
     // The independent ambient cloud clock below handles actual through-gate
@@ -117,19 +118,31 @@ export function createJourneyScene(reducedMotion) {
     flight.style.opacity = String(Number(flight.style.opacity) * (1 - ending));
     targets.forEach((checkpoint, index) => {
       const { element, center } = panelMetrics[index];
-      const state = checkpointVisibility(progress, checkpoint.at);
+      const state = checkpointVisibility(progress, checkpoint.at); // opacity state
       // Arrival shares the exact beam-contact threshold. The red front grows
       // from the incoming side; it is not a one-time class or a time-only tween.
       const charge = orbCharge(progress, checkpoint.at);
       checkpoint.element.style.setProperty("--charge", String(charge));
       checkpoint.element.style.setProperty("--wash-radius", `${charge * 190}%`);
-      maximumOpacity = Math.max(maximumOpacity, state.opacity);
-      element.style.opacity = String(state.opacity);
-      element.style.visibility = state.opacity > 0.015 ? "visible" : "hidden";
-      element.style.pointerEvents = state.opacity > 0.5 ? "auto" : "none";
-      // Expand out of the lightning's arrival point, then settle into a
-      // consistent reading position; departure shrinks back into the cloud path.
+      
       const orb = projectPoint(checkpoint, cameraZ, width, height);
+
+      // Once an exiting checkpoint passes the camera, its tile must stay hidden.
+      // Otherwise the fallback coordinates can bring it back into the viewport.
+      const hasPassedCamera = !orb && state.departure > 0;
+      const panelOpacity = hasPassedCamera ? 0 :state.opacity; // opacity set to zero if the camera is passed the orb
+
+      maximumOpacity = Math.max(maximumOpacity, panelOpacity);
+      element.style.opacity = String(panelOpacity);
+      // Make it "vanish slowly" by adjusting its opacity
+      element.style.visibility =
+        panelOpacity > 0.015 ? "visible" : "hidden"; // hide the panels if the opacity drop below 0.015
+      element.style.pointerEvents =
+        panelOpacity > 0.5 ? "auto" : "none"; 
+
+     // Expand out of the lightning's arrival point, then settle into a
+      // consistent reading position; departure shrinks back into the cloud path.
+      
       const originX = orb?.x ?? width * 0.7;
       const originY = orb?.y ?? height * 0.47;
       if (orb) {
@@ -154,7 +167,7 @@ export function createJourneyScene(reducedMotion) {
         const size = Math.max(10, Math.min(130, orb.scale * 600));
         checkpoint.element.style.width = `${size}px`;
         checkpoint.element.style.height = `${size}px`;
-        checkpoint.element.style.transform = `translate(${originX - size / 2}px,${originY - size / 2}px)`;
+        checkpoint.element.style.transform = `translate(${originX - size / 2}px,${originY - size / 2}px)`; // visual shrink animation
         checkpoint.element.style.opacity = String(
           (1 - state.opacity * 0.35) *
             smoothstep((progress - 0.18) / 0.06) *
@@ -174,6 +187,7 @@ export function createJourneyScene(reducedMotion) {
 
   /** The shared scheduler owns frequency and elapsed time. Scroll paints use
    * the same performance clock, so the electrical phase never resets. */
+  // Renders ambient clouds at the gate
   function renderAmbient(now, deltaSeconds) {
     if (!sceneState) return;
     const state = sceneState;

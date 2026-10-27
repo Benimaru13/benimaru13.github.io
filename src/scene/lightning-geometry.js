@@ -16,9 +16,10 @@
 export function flightRoutePoint(knots, z) {
   for (let leg = 1; leg < knots.length; leg++) {
     const a = knots[leg - 1],
-      b = knots[leg];
+          b = knots[leg];
+
     if (z <= b.z) {
-      const t = Math.max(0, Math.min(1, (z - a.z) / (b.z - a.z)));
+      const t = Math.max(0, Math.min(1, (z - a.z) / (b.z - a.z))); // segmentProgress or time stamp
       // Preserve exact contact coordinates despite sin(PI) roundoff.
       if (t === 0) return { ...a, z };
       if (t === 1) return { ...b, z };
@@ -31,18 +32,19 @@ export function flightRoutePoint(knots, z) {
         { lift: 480, sway: 1080, skew: 120, lean: 650 },
         { lift: -300, sway: -620, skew: -100, lean: 100 },
       ][(leg - 1) % 4];
-      const envelope = Math.sin(Math.PI * t);
+      // lift for vertical climb or dive, sway for sideways movement, lean to tilt the curve to one side, skew to make the approach assymetrical
+
+      const bendStrength = Math.sin(Math.PI * t);
+      const verticalBend = profile.lift * bendStrength;
+      const sidewaysLean = profile.lean * bendStrength;
       return {
         x:
-          a.x +
-          (b.x - a.x) * ease +
-          profile.sway * Math.sin(2 * Math.PI * t) * envelope +
-          profile.lean * envelope,
+          a.x + (b.x - a.x) * ease + // the basic beam's horizontal path
+          profile.sway * Math.sin(2 * Math.PI * t) * bendStrength + sidewaysLean, // dynamic features that make the beam's horizontal more "alive"
         y:
-          a.y +
-          (b.y - a.y) * ease +
-          envelope * profile.lift +
-          Math.sin(2 * Math.PI * t) * profile.skew,
+          a.y + (b.y - a.y) * ease + // the basic beam's vertical path
+           // this is the vertical bend that progressively towards the middle of the segment
+          Math.sin(2 * Math.PI * t) * profile.skew + verticalBend,
         z,
       };
     }
